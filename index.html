@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON to CSV App</title>
+</head>
+<body>
+    <h1>JSON 2 CSV</h1>
+
+    <form id="jsonForm">
+        <label for="jsonInput">Enter JSON:</label><br>
+        <textarea id="jsonInput" name="jsonInput" rows="20" cols="60"></textarea><br>
+        <input type="submit" value="Convert to CSV">
+    </form>
+    <br>
+    <textarea id="csvOutput" name="csvOutput" rows="20" cols="60" readonly></textarea>
+    <br>
+</body>
+<script src="converter.js"></script>
+<script>
+    document.getElementById('jsonForm').addEventListener('submit', function (event) {
+        event.preventDefault()
+        const jsonInput = document.getElementById('jsonInput').value;
+        const response = convertJSONToCSV(jsonInput)
+        if (response) {
+            
+        }
+    })
+</script>
+</html>
