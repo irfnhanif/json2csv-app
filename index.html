@@ -5,40 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JSON to CSV App</title>
   </head>
-  <body>
+<body>
     <h1>JSON 2 CSV</h1>
 
     <form id="jsonForm">
-      <label for="jsonInput">Enter JSON:</label><br />
-      <textarea id="jsonInput" name="jsonInput" rows="20" cols="60"></textarea
-      ><br />
-      <input type="submit" value="Convert to CSV" />
+        <label for="jsonInput">Enter JSON:</label><br />
+        <textarea id="jsonInput" name="jsonInput" rows="20" cols="60"></textarea
+        ><br />
+        <input type="submit" value="Convert to CSV" />
+        <button type="button" onclick="clearTextArea()">Clear</button>
     </form>
     <br />
     <textarea
-      id="csvOutput"
-      name="csvOutput"
-      rows="20"
-      cols="60"
-      readonly
+        id="csvOutput"
+        name="csvOutput"
+        rows="20"
+        cols="60"
+        readonly
     ></textarea>
     <br />
-  </body>
-  <script src="converter.js"></script>
-  <script>
-    document
-      .getElementById("jsonForm")
-      .addEventListener("submit", function (event) {
-        event.preventDefault();
-        const jsonInput = document.getElementById("jsonInput").value;
 
-        try {
-          const parsedJSON = JSON.parse(jsonInput);
-          const response = convertJSONToCSV(parsedJSON);
-          document.getElementById("csvOutput").value = response;
-        } catch (error) {
-          console.error(error.message);
+    <script>
+        function clearTextArea() {
+            document.getElementById("jsonInput").value = "";
+            document.getElementById("csvOutput").value = "";
         }
-      });
-  </script>
+
+        document
+            .getElementById("jsonForm")
+            .addEventListener("submit", function (event) {
+                event.preventDefault();
+                const jsonInput = document.getElementById("jsonInput").value;
+                try {
+                    const parsedJSON = JSON.parse(jsonInput);
+                    const response = convertJSONToCSV(parsedJSON);
+                    document.getElementById("csvOutput").value = response;
+                } catch (error) {
+                    console.error(error.message);
+                }
+            });
+    </script>
+</body>
+<script src="converter.js"></script>
 </html>
