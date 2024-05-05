@@ -4,47 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JSON to CSV App</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
   </head>
-<body>
-    <h1>JSON 2 CSV</h1>
-
-    <form id="jsonForm">
-        <label for="jsonInput">Enter JSON:</label><br />
-        <textarea id="jsonInput" name="jsonInput" rows="20" cols="60"></textarea
-        ><br />
-        <input type="submit" value="Convert to CSV" />
-        <button type="button" onclick="clearTextArea()">Clear</button>
+  <body>
+    <h1 class="my-4 text-center"><strong>JSON 2 CSV</strong></h1>
+    <form id="jsonForm" class="mx-5">
+      <div class="form-group">
+        <label for="jsonInput" class="mb-2">Enter JSON:</label>
+        <textarea
+          class="form-control"
+          id="jsonInput"
+          name="jsonInput"
+          rows="5"
+        ></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary my-2 me-2">
+        Convert to CSV
+      </button>
+      <button
+        type="button"
+        class="btn btn-secondary my-2"
+        onclick="clearTextArea()"
+      >
+        Clear
+      </button>
     </form>
     <br />
-    <textarea
+    <div class="form-group mx-5">
+      <label for="csvOutput" class="mb-2">CSV Output:</label>
+      <textarea
+        class="form-control"
         id="csvOutput"
         name="csvOutput"
-        rows="20"
-        cols="60"
+        rows="5"
         readonly
-    ></textarea>
+      ></textarea>
+    </div>
     <br />
+  </body>
+  <script>
+    function clearTextArea() {
+      document.getElementById("jsonInput").value = "";
+      document.getElementById("csvOutput").value = "";
+    }
 
-    <script>
-        function clearTextArea() {
-            document.getElementById("jsonInput").value = "";
-            document.getElementById("csvOutput").value = "";
+    document
+      .getElementById("jsonForm")
+      .addEventListener("submit", function (event) {
+        event.preventDefault();
+        const jsonInput = document.getElementById("jsonInput").value;
+        try {
+          const parsedJSON = JSON.parse(jsonInput);
+          const response = convertJSONToCSV(parsedJSON);
+          document.getElementById("csvOutput").value = response;
+        } catch (error) {
+          console.error(error.message);
+          alert("Invalid JSON");
         }
-
-        document
-            .getElementById("jsonForm")
-            .addEventListener("submit", function (event) {
-                event.preventDefault();
-                const jsonInput = document.getElementById("jsonInput").value;
-                try {
-                    const parsedJSON = JSON.parse(jsonInput);
-                    const response = convertJSONToCSV(parsedJSON);
-                    document.getElementById("csvOutput").value = response;
-                } catch (error) {
-                    console.error(error.message);
-                }
-            });
-    </script>
-</body>
-<script src="converter.js"></script>
+      });
+  </script>
+  <script src="converter.js"></script>
 </html>
